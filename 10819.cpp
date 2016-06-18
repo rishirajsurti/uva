@@ -1,0 +1,67 @@
+#include <cstdio>
+#include <algorithm>
+#include <cstring>
+#include <iostream>
+
+using namespace std;
+
+int main(){
+	int m,n;
+	int best[10204];
+
+	while(scanf("%d %d", &m, &n) != EOF){
+		memset(best, -1, sizeof best);
+		best[0] = 0;
+
+		for(int i =0; i < n; i++){
+			int p,v;
+			scanf("%d %d", &p, &v);
+			for(int j = m+200-p; j >= 0; j--){
+				if(best[j]==-1) continue;
+				best[j+p] = max(best[j+p], best[j]+v);
+			}
+		}
+
+		int answer = 0;
+		for(int i =0; i <= m + 200; i++){
+			if (i <= 2000 && i > m) continue;
+			answer = max(answer, best[i]);
+		}
+		printf("%d\n", answer);
+	}
+	return 0;
+}
+
+/*#include <cstdio>
+#include <algorithm>
+#include <cstring>
+using namespace std;
+
+int m,n;
+int p[110], f[110];
+int dp[110][15000];
+
+int recurse( int i, int w){
+	if(w > m && m < 1800)
+		return -1000;
+	if(w > m + 200)
+		return -1000;
+	if(i == n){
+		if(w > m && w <= 2000)
+			return -1000;
+		return 0;
+	}
+	if(dp[i][w] != -1) return dp[i][w];
+
+	return dp[i][w] = max(recurse(i+1, w), \
+				f[i] + recurse(i+1, w+p[i]));
+}
+
+int main(){
+	while(scanf("%d %d", &m, &n) == 2){
+		for(int i = 0; i < n; i++)
+			scanf("%d %d", &p[i], &f[i]);
+		memset(dp, -1, sizeof dp);
+		printf("ans = %d\n", recurse(0,0));
+	}
+}*/
