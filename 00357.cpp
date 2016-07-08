@@ -13,7 +13,7 @@ void ncount(){
 			dp[j] += dp[j-coin[i]];
 	}
 }	
-
+	
 int main(){
 	ull n; 
 	ncount();
